@@ -86,20 +86,24 @@ const sortBy2 = document.getElementById("sortBy");
 // })
 
 let category="all";
-sortBy.forEach(function(sort){
-  console.log(sort.innerHTML)
-})
+// sortBy.forEach(function(sort){
+//   console.log(sort.innerHTML)
+// })
 
 sortBy2.addEventListener("change",function(e){
   let options = sortBy2.querySelectorAll("option");
+  // let dropdown = document.getElementById("sortBy");
   var count = options.length;
+  // console.log(options);
   options.forEach(function(option){
     if (option.selected){
-      console.log(option.value);
+      // console.log(option.value);
       if (option.value == "sortbyprice_lth"){
+        // dropdown.value = "default";
         lowToHigh();
       }
       else if (option.value == "sortbyprice_htl"){
+        // dropdown.value = "default";
         highToLow();
       }
     };
@@ -108,8 +112,67 @@ sortBy2.addEventListener("change",function(e){
 
 // Function for sorting by price from low to high
 function lowToHigh(){
-  console.log("In low to high function");
-  const sectionCenter = document.querySelector(".section-center");
+  // console.log("In low to high function");
+  const sectionCenter2 = document.querySelector(".section-center");
+  const menu2 = structuredClone(menu);
+  //  Filter the menu according to the category
+  if (category == "all"){
+    sortFunction(menu2);
+  }
+  else{
+    let menuItem = menu2.filter(function(item){
+      if (item.category===category){
+        return item;
+      }
+    });
+    sortFunction(menuItem);
+  }
+  
+  function sortFunction(menuToSort){
+  //   let sortedMenu = menuToSort.filter(function(item){
+  //     console.log(item);
+      
+      
+  //   })
+  //   const flatObj = Object.keys(menuToSort).reduce((acc, key) => {
+  //     acc[key] = menuToSort[key].price; // Assuming you want to sort by the 'name' property
+  //     return acc;
+  //   }, {});
+  //   console.log(flatObj,typeof flatObj);
+
+  //   const filteredData = menuToSort.filter((item, index) => item.price>15 ) 
+  //   console.log(filteredData);
+    
+  //   const sortedKeys = Object.keys(menuToSort).sort((a, b) => {
+  //     // return menuToSort[a].title.localeCompare(menuToSort[b].title);
+  //     // console.log(menuToSort[a].price, menuToSort[b].price);
+  //     if (menuToSort[a].price>menuToSort[b].price){
+  //       return menuToSort[a];
+  //     }
+  //     else{
+  //       return menuToSort[b];
+  //     }
+  //   });
+  //   console.log(sortedKeys);
+  //   // console.log(sortedMenu);
+  // }
+  // // console.log(flatObj);
+
+  // console.log(menuToSort.sort(byPrice));
+  const sortedMenu = menuToSort.sort(byPrice);
+  displayItems(sortedMenu);
+
+  function byPrice(a, b) {
+    return parseFloat(a.price) - parseFloat(b.price);
+  }
+
+  }
+
+}
+
+// function for sorting by price from high to low
+function highToLow(){
+  const sectionCenter2 = document.querySelector(".section-center");
   //  Filter the menu according to the category
   if (category == "all"){
     sortFunction(menu);
@@ -124,41 +187,15 @@ function lowToHigh(){
   }
   
   function sortFunction(menuToSort){
-    let sortedMenu = menuToSort.filter(function(item){
-      console.log(item);
-      
-      
-    })
-    const flatObj = Object.keys(menuToSort).reduce((acc, key) => {
-      acc[key] = menuToSort[key].price; // Assuming you want to sort by the 'name' property
-      return acc;
-    }, {});
-    console.log(flatObj,typeof flatObj);
-
-    const filteredData = menuToSort.filter((item, index) => item.price>15 ) 
-    console.log(filteredData);
-    
-    const sortedKeys = Object.keys(menuToSort).sort((a, b) => {
-      // return menuToSort[a].title.localeCompare(menuToSort[b].title);
-      // console.log(menuToSort[a].price, menuToSort[b].price);
-      if (menuToSort[a].price>menuToSort[b].price){
-        return menuToSort[a];
-      }
-      else{
-        return menuToSort[b];
-      }
-    });
-    console.log(sortedKeys);
-    // console.log(sortedMenu);
-  }
   
-  // console.log(flatObj);
+  const sortedMenu = menuToSort.sort(byPrice_htl);
+  displayItems(sortedMenu);
 
-}
+  function byPrice_htl(a, b) {
+    return parseFloat(b.price) - parseFloat(a.price);
+  }
 
-// function for sorting by price from high to low
-function highToLow(){
-
+  }
 }
 
 
@@ -169,13 +206,20 @@ window.addEventListener("DOMContentLoaded", function () {
 button.forEach(function(btn){
   btn.addEventListener("click",function(e){
     category = e.currentTarget.dataset["filter"];
-    console.log(category);
-    let menuItem = menu.filter(function(item){
+    // console.log(category);
+    // console.log(menu);
+
+    //Set the value of dropdown to default 
+
+    let dropdown = document.getElementById("sortBy");
+    dropdown.value = "default";
+    const menu2 = structuredClone(menu);
+    let menuItem = menu2.filter(function(item){
       if (item.category===category){
         return item;
       }
     })
-    console.log(menuItem);
+    // console.log(menuItem);
     if (category === 'all'){
       displayItems(menu)
     }
@@ -209,3 +253,4 @@ function displayItems(menuItem) {
   // console.log(displayMenu);
   sectionCenter.innerHTML = displayMenu;
 }
+
