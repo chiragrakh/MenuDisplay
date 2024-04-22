@@ -192,7 +192,7 @@ Menu
   justify-content: center;
   flex-wrap: wrap;
 }
-.filter-btn, .dropdown {
+.filter-btn, .dropdown, .dropdown option {
   text-decoration: none;
   background: transparent;
   border-color: var(--clr-gold);
@@ -206,7 +206,14 @@ Menu
   cursor: pointer;
   transition: var(--transition);
 }
-.filter-btn:hover, .dropdown:hover {
+.dropdown option{
+  background-color: var(--clr-grey-10);
+  padding: 20px 20px;
+}
+.dropdown option:disabled {
+  display: none;
+}
+.filter-btn:hover {
   background: var(--clr-gold);
   color: var(--clr-white);
 }
