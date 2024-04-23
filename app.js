@@ -78,7 +78,7 @@ const sectionCenter = document.querySelector(".section-center");
 const button = document.querySelectorAll(".filter-btn");
 // document.querySelector('.section-center').innerHTML("Hi there")
 
-const sortBy = document.querySelectorAll(".sortByOption");
+// const sortBy = document.querySelectorAll(".sortByOption");
 
 const sortBy2 = document.getElementById("sortBy");
 // sortBy.addEventListener("change",function(e){
@@ -93,7 +93,7 @@ let category = "all";
 sortBy2.addEventListener("change", function (e) {
   let options = sortBy2.querySelectorAll("option");
   // let dropdown = document.getElementById("sortBy");
-  var count = options.length;
+  // var count = options.length;
   // console.log(options);
   options.forEach(function (option) {
     if (option.selected) {
@@ -147,6 +147,8 @@ function sortFunction(sortByFilter) {
       var sortedMenu = menuToSort.sort(byName);
       displayItems(sortedMenu);
       break;
+    default:
+      alert("Something Went wrong");
   }
 
   //  Function to sort by price
