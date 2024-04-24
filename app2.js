@@ -1,4 +1,4 @@
-const menu = [
+const allItems = [
   {
     id: 1,
     title: "buttermilk pancakes",
@@ -73,6 +73,9 @@ const menu = [
   },
 ];
 
+let filteredItems;
+let filteredItemsSearch;
+
 const sectionCenter = document.querySelector(".section-center");
 
 const button = document.querySelectorAll(".filter-btn");
@@ -92,60 +95,80 @@ let category = "all";
 
 sortBy2.addEventListener("change", function (e) {
   let options = sortBy2.querySelectorAll("option");
-  // let dropdown = document.getElementById("sortBy");
-  // var count = options.length;
-  // console.log(options);
-  options.forEach(function (option) {
-    if (option.selected) {
-      // console.log(option.value);
-      // if (option.value == "sortbyprice_lth") {
-      //   // dropdown.value = "default";
-      //   sortFunction(option.value);
-      // } else if (option.value == "sortbyprice_htl") {
-      //   // dropdown.value = "default";
-      //   sortFunction(option.value);
-      // } else if (option.value == "sortbyname_asc") {
-      //   // dropdown.value = "default";
-      //   sortFunction(option.value);
-      // } else if (option.value == "sortbyname_desc") {
-      //   // dropdown.value = "default";
-      //   sortFunction(option.value);
-      // }
-      sortFunction(option.value);
-    }
-  });
-});
 
-function sortFunction(sortByFilter) {
-  const menu2 = structuredClone(menu);
-  // 1st step - filter the menu according to the category
-  if (category == "all") {
-    menuToSort = menu2;
-  } else {
-    let menuItem = menu2.filter(function (item) {
-      if (item.category === category) {
-        return item;
+  //  Check whether there is anything in search
+  var word = document.getElementById("searchMenu").value;
+  if (word.length !== 0) {
+    options.forEach(function (option) {
+      if (option.selected) {
+        // console.log(option.value);
+        // if (option.value == "sortbyprice_lth") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyprice_htl") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyname_asc") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyname_desc") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // }
+        sortFunction(option.value, filteredItemsSearch);
       }
     });
-    menuToSort = menuItem;
+  } else {
+    options.forEach(function (option) {
+      if (option.selected) {
+        // console.log(option.value);
+        // if (option.value == "sortbyprice_lth") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyprice_htl") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyname_asc") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // } else if (option.value == "sortbyname_desc") {
+        //   // dropdown.value = "default";
+        //   sortFunction(option.value);
+        // }
+        sortFunction(option.value, filteredItems);
+      }
+    });
   }
+});
 
+function sortFunction(sortByFilter, menuItems) {
+  // const menu2 = structuredClone(menu);
+  // 1st step - filter the menu according to the category
+  // if (category == "all") {
+  //   menuToSort = menu2;
+  // } else {
+  //   let menuItem = menu2.filter(function (item) {
+  //     if (item.category === category) {
+  //       return item;
+  //     }
+  //   });
+  //   menuToSort = menuItem;
+  // }
+
+  console.log(menuItems);
   switch (sortByFilter) {
     case "sortbyprice_lth":
-      var sortedMenu = menuToSort.sort(byPrice);
-      displayItems(sortedMenu);
+      displayItems(menuItems.sort(byPrice));
       break;
     case "sortbyprice_htl":
-      var sortedMenu = menuToSort.sort(byPrice);
+      var sortedMenu = menuItems.sort(byPrice);
       displayItems(sortedMenu);
       break;
     case "sortbyname_asc":
-      var sortedMenu = menuToSort.sort(byName);
-      displayItems(sortedMenu);
+      displayItems(menuItems.sort(byName));
       break;
     case "sortbyname_desc":
-      var sortedMenu = menuToSort.sort(byName);
-      displayItems(sortedMenu);
+      displayItems(menuItems.sort(byName));
       break;
     default:
       alert("Something Went wrong");
@@ -330,7 +353,8 @@ function sortFunction(sortByFilter) {
 // }
 
 window.addEventListener("DOMContentLoaded", function () {
-  displayItems(menu);
+  displayItems(allItems);
+  filteredItems = allItems;
 
   //  Reset the dropdown value to Sort By
   let dropdown = document.getElementById("sortBy");
@@ -351,17 +375,18 @@ button.forEach(function (btn) {
     let searchBar = document.getElementById("searchMenu");
     searchBar.value = "";
 
-    const menu2 = structuredClone(menu);
-    let menuItem = menu2.filter(function (item) {
+    // const menu2 = structuredClone(menu);
+    filteredItems = allItems.filter(function (item) {
       if (item.category === category) {
         return item;
       }
     });
     // console.log(menuItem);
     if (category === "all") {
-      displayItems(menu);
+      filteredItems = allItems; //filteredItems needs to updated
+      displayItems(allItems);
     } else {
-      displayItems(menuItem);
+      displayItems(filteredItems);
     }
   });
 });
@@ -392,31 +417,47 @@ function displayItems(menuItem) {
 }
 
 //  Search function
+// function searchFunction() {
+//   var word = document.getElementById("searchMenu").value;
+//   console.log(word);
+
+//   if (word.length){
+//     const updatedItems = filteredItems.filter(function(item){
+//       console.log(item.title);
+//       if (item.title.toUpperCase().indexOf(word.toUpperCase()) !== -1) {
+//         return item;
+//       }
+//     })
+
+//       filteredItems = updatedItems.length ? updatedItems : filteredItems
+//     // console.log(filteredMenu);
+
+//     displayItems(filteredItems);
+//   }
+//   else
+//   {
+//     displayItems(filteredItems);
+//   }
+// }
+
 function searchFunction() {
   var word = document.getElementById("searchMenu").value;
   console.log(word);
+  // filteredItemsSearch = structuredClone(filteredItems);
 
-  const menu2 = structuredClone(menu);
-  if (category == "all") {
-    menuToSearch = menu2;
-  } else {
-    let menuItem = menu2.filter(function (item) {
-      if (item.category === category) {
+  if (word.length) {
+    const updatedItems = filteredItems.filter(function (item) {
+      console.log(item.title);
+      if (item.title.toUpperCase().indexOf(word.toUpperCase()) !== -1) {
         return item;
       }
     });
-    menuToSearch = menuItem;
+
+    filteredItemsSearch = updatedItems.length ? updatedItems : filteredItems;
+    // console.log(filteredMenu);
+
+    displayItems(filteredItemsSearch);
+  } else {
+    displayItems(filteredItems);
   }
-
-  let filteredMenu = menuToSearch.filter(function(item){
-    console.log(item.title);
-    if (item.title.toUpperCase().indexOf(word.toUpperCase()) > -1) {
-      return item;
-    }
-  })
-
-  console.log(filteredMenu);
-
-  displayItems(filteredMenu);
-
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starter</title>
+    <title>Our Menu</title>
     <!-- font-awesome -->
     <link
       rel="stylesheet"
@@ -34,6 +34,7 @@
         data-filter="shakes">
           Shakes
         </button>
+        <!-- Sort by options -->
         <select name="sortBy" id="sortBy" class="dropdown sortBy">
           <option value="default" default class="sortByOption" disabled>Sort By</option>
           <option value="sortbyprice_lth" class="sortByOption">Price(Low to High)</option>
@@ -41,6 +42,8 @@
           <option value="sortbyname_asc" class="sortByOption">Name(Ascending)</option>
           <option value="sortbyname_desc" class="sortByOption">Name(Descending)</option>
         </select>
+        <!-- Search -->
+        <input type="text" class="search" name="searchMenu" id="searchMenu" placeholder="Search....." onkeyup="searchFunction()" autocomplete="off">
       </div>
       <!-- menu items -->
       <div class="section-center">
@@ -50,6 +53,6 @@
       </div>
     </section>
     <!-- javascript -->
-    <script src="app.js"></script>
+    <script src="app2.js"></script>
   </body>
 </html>

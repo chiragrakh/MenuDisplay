@@ -191,8 +191,9 @@ Menu
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-inline: 1rem;
 }
-.filter-btn, .dropdown, .dropdown option {
+.filter-btn, .dropdown, .dropdown option, .search {
   text-decoration: none;
   background: transparent;
   border-color: var(--clr-gold);
@@ -217,6 +218,11 @@ Menu
   background: var(--clr-gold);
   color: var(--clr-white);
 }
+.search {
+  cursor: text;
+  display:flow-root;
+  text-transform: none;
+}
 .section-center {
   width: 90vw;
   margin: 0 auto;
@@ -224,6 +230,8 @@ Menu
   display: grid;
   gap: 3rem 2rem;
   justify-items: center;
+  
+  transition: var(--transition);
 }
 .menu-item {
   display: grid;
