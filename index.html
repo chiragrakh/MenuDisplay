@@ -20,20 +20,23 @@
       </div>
       <!-- Filter buttons -->
       <div class="btn-container">
-        <button class="filter-btn" type="button" data-filter="all">
-          All
-        </button>
-        <button class="filter-btn" type="button" data-filter="breakfast">
-          Breakfast
-        </button>
-        <button class="filter-btn" type="button"
-        data-filter="lunch">
-          Lunch
-        </button>
-        <button class="filter-btn" type="button"
-        data-filter="shakes">
-          Shakes
-        </button>
+        <div class="btns">
+          <button class="filter-btn" type="button" data-filter="all">
+            All
+          </button>
+          <button class="filter-btn" type="button" data-filter="breakfast">
+            Breakfast
+          </button>
+          <button class="filter-btn" type="button"
+          data-filter="lunch">
+            Lunch
+          </button>
+          <button class="filter-btn" type="button"
+          data-filter="shakes">
+            Shakes
+          </button>
+        </div>
+        
         <!-- Sort by options -->
         <select name="sortBy" id="sortBy" class="dropdown sortBy">
           <option value="default" default class="sortByOption" disabled>Sort By</option>
@@ -48,11 +51,13 @@
       <!-- menu items -->
       <div class="section-center">
         <!-- single item -->
-
         <!-- single item end -->
+      </div>
+      <div id="cart">
+        <p id="cartTotal"></p>
       </div>
     </section>
     <!-- javascript -->
-    <script src="app2.js"></script>
+    <script src="app3.js"></script>
   </body>
 </html>
